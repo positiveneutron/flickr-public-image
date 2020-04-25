@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -23,18 +23,54 @@ const useStyles = makeStyles({
 
 let PublicImageList = ({ getPhotos, photos }) => {
   const classes = useStyles();
-
+  const [isPagination, setIsPagination] = useState(false);
+  const [page, setPage] = useState(1);
   useEffect(() => getPhotos(), []);
 
+  const handleSetPagination = () => {
+    setIsPagination(!isPagination);
+    isPagination ? setPage(1) : setPage(page);
+  };
   return (
     <div className="my-8 flex flex-col w-1/2">
-      <Typography>Page 1 of 4 pages</Typography>
-      <div className="flex flex-row justify-between">
-        <Button variant="outlined">&lt; Previous Page</Button>
-        <Button variant="outlined" className="ml-16">
-          Next Page &gt;
-        </Button>
-      </div>
+      <Typography
+        className={
+          isPagination
+            ? "cursor-pointer text-red-500"
+            : "cursor-pointer text-green-500"
+        }
+        onClick={() => handleSetPagination()}
+      >
+        {isPagination
+          ? "Without pagination click here🤷‍♂️"
+          : "With pagination click here💁‍♂️"}
+      </Typography>
+
+      {isPagination && (
+        <React.Fragment>
+          <Typography>
+            Page {page} of {photos.length / 2} pages
+          </Typography>
+          <div className="flex flex-row justify-between">
+            <Button
+              disabled={page === 1 ? true : false}
+              variant="outlined"
+              onClick={() => setPage(page - 1)}
+            >
+              &lt; Previous Page
+            </Button>
+            <Button
+              disabled={photos.length / 2 > page ? false : true}
+              variant="outlined"
+              className="ml-16"
+              onClick={() => setPage(page + 1)}
+            >
+              Next Page &gt;
+            </Button>
+          </div>
+        </React.Fragment>
+      )}
+
       {photos.map((photo, key) => (
         <Card className="w-full my-4" key={key}>
           <CardActionArea>
