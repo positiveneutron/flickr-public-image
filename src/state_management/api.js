@@ -1,7 +1,7 @@
 import { fetchPublicPhotos } from "./action";
 import axios from "axios";
 
-const getPublicPhotos = () => {
+export const getPublicPhotos = () => {
   return (dispatch) => {
     axios
       .get(`http://127.0.0.1:8000/public_image`)
@@ -10,4 +10,11 @@ const getPublicPhotos = () => {
   };
 };
 
-export default getPublicPhotos;
+export const getPublicPhotosByTags = (tags) => {
+  return (dispatch) => {
+    axios
+      .get(`http://127.0.0.1:8000/public_image/${tags}`)
+      .then((response) => dispatch(fetchPublicPhotos(response.data)))
+      .catch((error) => console.error(error));
+  };
+};
