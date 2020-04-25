@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import App from "./App";
+import PublicImageList from "../components/PublicImageList";
 
-test("App.test.js", () => {
+test("PublicImageList.test.js", () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/Flickr Public Images/i);
+  const linkElement = getByText(/Page/i);
   expect(linkElement).toBeInTheDocument();
 });

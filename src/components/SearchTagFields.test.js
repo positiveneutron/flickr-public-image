@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import App from "./App";
+import SearchTagsField from "../components/SearchTagsField";
 
-test("App.test.js", () => {
+test("SearchTagsField.test.js", () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/Flickr Public Images/i);
+  const linkElement = getByText(/Search/i);
   expect(linkElement).toBeInTheDocument();
 });
