@@ -4,7 +4,7 @@ import axios from "axios";
 export const getPublicPhotos = () => {
   return (dispatch) => {
     axios
-      .get(`http://127.0.0.1:8000/public_image`)
+      .get(`https://flickr-api-gateway.herokuapp.com/public_image`)
       .then((response) => dispatch(fetchPublicPhotos(response.data)))
       .catch((error) => console.error(error));
   };
@@ -13,7 +13,7 @@ export const getPublicPhotos = () => {
 export const getPublicPhotosByTags = (tags) => {
   return (dispatch) => {
     axios
-      .get(`http://127.0.0.1:8000/public_image/${tags}`)
+      .get(`https://flickr-api-gateway.herokuapp.com/public_image/${tags}`)
       .then((response) => dispatch(fetchPublicPhotos(response.data)))
       .catch((error) => console.error(error));
   };
