@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Card,
@@ -9,7 +9,8 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import axios from "axios";
+import { connect } from "react-redux";
+import getPublicPhotos from "../state_management/api";
 
 const useStyles = makeStyles({
   root: {
@@ -20,9 +21,10 @@ const useStyles = makeStyles({
   },
 });
 
-const PublicImageList = () => {
+let PublicImageList = ({ getPhotos, photos }) => {
   const classes = useStyles();
-  const [publicImages, setPublicImages] = useState([]);
+
+  useEffect(() => getPhotos(), []);
 
   return (
     <div className="my-8 flex flex-col w-1/2">
@@ -33,36 +35,29 @@ const PublicImageList = () => {
           Next Page &gt;
         </Button>
       </div>
-      {publicImages.map((key) => (
+      {photos.map((photo, key) => (
         <Card className="w-full my-4" key={key}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
+              image={photo.media.m}
               title="Contemplative Reptile"
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                {!photo.title ? "No Title" : photo.title}
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
         </Card>
       ))}
     </div>
   );
 };
 
+const mapStateToProps = (state) => ({ photos: state.photos });
+
+const mapDispatchToProps = { getPhotos: getPublicPhotos };
+
+PublicImageList = connect(mapStateToProps, mapDispatchToProps)(PublicImageList);
 export default PublicImageList;
