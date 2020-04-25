@@ -24,26 +24,15 @@ const PublicImageList = () => {
   const classes = useStyles();
   const [publicImages, setPublicImages] = useState([]);
 
-  const getPublicImages = () =>
-    axios
-      .get("http://127.0.0.1:8000/public_image")
-      .then(function (response) {
-        // handle success
-        console.log(response.data.items);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-
-  useEffect(() => getPublicImages());
-
   return (
     <div className="my-8 flex flex-col w-1/2">
-      <Typography>Showing 3 of 20 images</Typography>
+      <Typography>Page 1 of 4 pages</Typography>
+      <div className="flex flex-row justify-between">
+        <Button variant="outlined">&lt; Previous Page</Button>
+        <Button variant="outlined" className="ml-16">
+          Next Page &gt;
+        </Button>
+      </div>
       {publicImages.map((key) => (
         <Card className="w-full my-4" key={key}>
           <CardActionArea>

@@ -4,11 +4,15 @@ import "./index.css";
 import "../src/assets/css/tailwind.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { rootReducer } from "./state_management/reducer";
 
+const store = createStore(rootReducer);
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 
