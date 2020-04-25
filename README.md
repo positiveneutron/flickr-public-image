@@ -1,6 +1,6 @@
-## Deployment Info
+## Deployment and Publish Info
 
-This product has deployed on .
+This product has deployed on [this Netlify App](https://flickr-public-images.netlify.app/).
 
 ## Tech Stacks
 
